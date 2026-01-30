@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z 900</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: linear-gradient(90deg, #0f3460 0%, #1a1a2e 100%);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .time-5g {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .time {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .signal-5g {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+            color: #4ecca3;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ff9a00, #ff5e00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .language {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        .main-content {
+            padding: 20px;
+        }
+        
+        .vip-banner {
+            background: linear-gradient(135deg, #ff9a00 0%, #ff5e00 100%);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(255, 90, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .vip-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            transform: rotate(30deg);
+        }
+        
+        .vip-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .vip-subtitle {
+            font-size: 16px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .reward-amount {
+            font-size: 48px;
+            font-weight: 800;
+            margin: 20px 0;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(90deg, #fff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .vip-tier {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 600;
+            margin-top: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .action-button {
+            background: linear-gradient(90deg, #0f3460, #1a1a2e);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 20px;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-around;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            width: 20%;
+            padding: 10px 5px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background-color: rgba(255, 90, 0, 0.2);
+        }
+        
+        .nav-icon {
+            font-size: 24px;
+            color: #4ecca3;
+        }
+        
+        .nav-text {
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        .category-tabs {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            gap: 10px;
+            scrollbar-width: none;
+        }
+        
+        .category-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .category-tab {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 8px 20px;
+            border-radius: 20px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .category-tab.active {
+            background: linear-gradient(90deg, #ff9a00, #ff5e00);
+            font-weight: 600;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 80px;
+        }
+        
+        .game-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .game-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #ff9a00;
+        }
+        
+        .game-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .game-subtitle {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+        
+        .play-button {
+            background: linear-gradient(90deg, #4ecca3, #1ea896);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(15, 52, 96, 0.95);
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 10px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+        }
+        
+        .bottom-nav-item.active {
+            color: #ff9a00;
+        }
+        
+        .bottom-nav-icon {
+            font-size: 20px;
+        }
+        
+        .bottom-nav-text {
+            font-size: 12px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            opacity: 0.7;
+            margin-top: 20px;
+        }
+        
+        .status-bar {
+            padding: 10px 15px;
+            background-color: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                max-width: 500px;
+                margin: 0 auto;
+                border-left: 1px solid rgba(255, 255, 255, 0.1);
+                border-right: 1px solid rgba(255, 255, 255, 0.1);
+                min-height: 100vh;
+            }
+            
+            .games-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .vip-title {
+                font-size: 20px;
+            }
+            
+            .reward-amount {
+                font-size: 40px;
+            }
+            
+            .games-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .nav-item {
+                width: 25%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="status-bar">
+            <div class="time">3:15</div>
+            <div class="signal-5g">
+                <i class="fas fa-signal"></i>
+                <span>5G</span>
+            </div>
+        </div>
+        
+        <div class="header">
+            <div class="logo">66 Lottery</div>
+            <div class="language">EN</div>
+        </div>
+        
+        <div class="main-content">
+            <div class="vip-banner">
+                <h1 class="vip-title">UNLOCK YOUR VIP REWARD!</h1>
+                <p class="vip-subtitle">DEPOSIT ACCORDING TO YOUR VIP TIER AND CLAIM YOUR EXCLUSIVE BONUS INSTANTLY!</p>
+                <div class="reward-amount">UP TO 36666</div>
+                <div class="vip-tier">VIP</div>
+                <button class="action-button">CLAIM NOW</button>
+            </div>
+            
+            <div class="navigation">
+                <div class="nav-item active">
+                    <i class="fas fa-star nav-icon"></i>
+                    <span class="nav-text">Popular</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-dice nav-icon"></i>
+                    <span class="nav-text">Lottery</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-sliders-h nav-icon"></i>
+                    <span class="nav-text">Slots</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-chess-queen nav-icon"></i>
+                    <span class="nav-text">Casino</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-dharmachakra nav-icon"></i>
+                    <span class="nav-text">Rummy</span>
+                </div>
+            </div>
+            
+            <div class="category-tabs">
+                <div class="category-tab active">All</div>
+                <div class="category-tab">Win Go</div>
+                <div class="category-tab">K3</div>
+                <div class="category-tab">Racing</div>
+                <div class="category-tab">Receive</div>
+                <div class="category-tab">Kerala</div>
+                <div class="category-tab">Original</div>
+                <div class="category-tab">Fishing</div>
+                <div class="category-tab">Sports</div>
+                <div class="category-tab">Lottery</div>
+            </div>
+            
+            <div class="games-grid">
+                <div class="game-card">
+                    <i class="fas fa-trophy game-icon"></i>
+                    <div class="game-title">Win Go</div>
+                    <div class="game-subtitle">Fast-paced lottery game</div>
+                    <button class="play-button">GO →</button>
+                </div>
+                <div class="game-card">
+                    <i class="fas fa-dice-three game-icon"></i>
+                    <div class="game-title">K3</div>
+                    <div class="game-subtitle">Quick draw game</div>
+                    <button class="play-button">GO →</button>
+                </div>
+                <div class="game-card">
+                    <i class="fas fa-flag-checkered game-icon"></i>
+                    <div class="game-title">Racing</div>
+                    <div class="game-subtitle">Bet on races</div>
+                    <button class="play-button">GO →</button>
+                </div>
+                <div class="game-card">
+                    <i class="fas fa-gift game-icon"></i>
+                    <div class="game-title">Receive</div>
+                    <div class="game-subtitle">Claim rewards</div>
+                    <button class="play-button">GO →</button>
+                </div>
+                <div class="game-card">
+                    <i class="fas fa-fish game-icon"></i>
+                    <div class="game-title">Fishing</div>
+                    <div class="game-subtitle">Arcade fishing game</div>
+                    <button class="play-button">GO →</button>
+                </div>
+                <div class="game-card">
+                    <i class="fas fa-football-ball game-icon"></i>
+                    <div class="game-title">Sports</div>
+                    <div class="game-subtitle">Sports betting</div>
+                    <button class="play-button">GO →</button>
+                </div>
+            </div>
+            
+            <div class="footer">
+                66lottery.vip
+            </div>
+        </div>
+        
+        <div class="bottom-nav">
+            <div class="bottom-nav-item active">
+                <i class="fas fa-home bottom-nav-icon"></i>
+                <span class="bottom-nav-text">Home</span>
+            </div>
+            <div class="bottom-nav-item">
+                <i class="fas fa-gift bottom-nav-icon"></i>
+                <span class="bottom-nav-text">Promotion</span>
+            </div>
+            <div class="bottom-nav-item">
+                <i class="fas fa-money-bill-wave bottom-nav-icon"></i>
+                <span class="bottom-nav-text">Get Money</span>
+            </div>
+            <div class="bottom-nav-item">
+                <i class="fas fa-user-friends bottom-nav-icon"></i>
+                <span class="bottom-nav-text">Agent</span>
+            </div>
+            <div class="bottom-nav-item">
+                <i class="fas fa-user-circle bottom-nav-icon"></i>
+                <span class="bottom-nav-text">Account</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update time every minute
+        function updateTime() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            
+            // Format time as 3:15 style
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            
+            // For demonstration, we'll keep it as 3:15 as shown in the image
+            // For real time: document.querySelector('.time').textContent = `${hours}:${minutes}`;
+        }
+        
+        // Update time initially and then every minute
+        updateTime();
+        setInterval(updateTime, 60000);
+        
+        // Add click functionality to navigation items
+        document.querySelectorAll('.nav-item, .category-tab, .bottom-nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all items in the same container
+                const parent = this.parentElement;
+                parent.querySelectorAll('.active').forEach(activeItem => {
+                    activeItem.classList.remove('active');
+                });
+                
+                // Add active class to clicked item
+                this.classList.add('active');
+                
+                // For demonstration, show an alert
+                const itemText = this.querySelector('.nav-text, .bottom-nav-text')?.textContent || 
+                                this.textContent || 'Item';
+                alert(`Navigating to ${itemText}`);
+            });
+        });
+        
+        // Add functionality to game buttons
+        document.querySelectorAll('.play-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent triggering parent click
+                const gameTitle = this.parentElement.querySelector('.game-title').textContent;
+                alert(`Loading ${gameTitle} game...`);
+            });
+        });
+        
+        // VIP Claim button functionality
+        document.querySelector('.action-button').addEventListener('click', function() {
+            alert('Redirecting to VIP deposit page...');
+        });
+        
+        // Make the entire game card clickable
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const gameTitle = this.querySelector('.game-title').textContent;
+                alert(`Opening ${gameTitle}...`);
+            });
+        });
+    </script>
+</body>
+</html>
